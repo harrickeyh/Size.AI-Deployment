@@ -1,7 +1,7 @@
 import os
 
 from flask import Flask, render_template, request, redirect, url_for
-from inference import get_prediction
+from predict import get_prediction #Get prediction inference.py
 from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = './static/'
@@ -28,13 +28,13 @@ def upload_file():
         if not file:
             return
         
-        print("GETTING PREDICTION")
+        print("Getting Prediction")
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         prediction, density = get_prediction(file)
-        return render_template('result.html', Prediction=prediction, File=filename, Density=density) 
-    return render_template('index.html')
+        return render_template('result2.html', Prediction=prediction, File=filename, Density='F:\DIP APP\density.jpg') 
+    return render_template('index2.html')
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
+    app.run(debug=True)
